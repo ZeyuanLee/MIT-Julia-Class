@@ -85,3 +85,46 @@ matA=jacobian(scalex(5),[1,2])
 
 using LinearAlgebra:det
 det(matA)
+
+#Section 4
+using LinearAlgebra:inv
+A=[1 2; 3 4]
+B=rand(2,2)
+v=[1,2]
+
+multi_A = v -> A*v
+multi_B = v -> B*v
+(multi_A∘multi_B)(v) ≈ A*B*v
+
+inv(A)
+A*inv(A) == [1 0; 0 1]
+
+#section 5
+using Symbolics
+using ForwardDiff:derivative
+
+@variables x y ϵ
+f(x)= x^3-5
+df(x)=derivative(testfun,x)
+expand(df)
+f(y)
+df(y)
+expand(f(y+ϵ))
+
+function newton1d(f::Function,x₀)
+    f′(x)=derivative(f,x)
+    x=x₀
+    for i ∈ 1:10
+        x=x-f(x)/f′(x)
+    end
+    return x
+end
+
+f(y)
+typeof(f(y))
+
+typeof(f(x))
+typeof(f)
+newton1d(x -> x^3-3x-3,2)
+root=newton1d(f,3)
+f(root)
