@@ -128,3 +128,36 @@ typeof(f)
 newton1d(x -> x^3-3x-3,2)
 root=newton1d(f,3)
 f(root)
+
+#lecture 1.9 structure
+using PlutoUI
+with_terminal()do #with terminial with PlutoUI.jl
+    dump(A)
+end
+
+#store different numbers when using different structure
+#Diagonal 
+using LinearAlgebra:Diagonal
+dense_D=[2 0 0;0 5 0; 0 0 7]
+dump(dense_D)
+
+diag_D=Diagonal(dense_D)
+dump(diag_D)
+supertypes(Diagonal)
+
+Diagonal([1,2,3])
+
+#---Sparse Matrix
+using SparseArrays:sparse
+testD_=[5 0 0;0 0 0; 0 0 20]
+spar_D=sparse(testD_)
+dump(spar_D)
+
+rands_num=rand(1:10,50)
+[sum(rands_num.==i) for i in 1:5]
+
+#Julia: Exceptions are thrown (generated) using error
+
+if rands_num[1]!= 1 
+    error("The first number is not 1")
+end
